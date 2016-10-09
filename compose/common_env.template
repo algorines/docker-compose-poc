@@ -1,0 +1,4 @@
+NODE_ENV=DEPLOYMENT_ENV
+microservice_1_URL=http://microservice_1:8080
+microservice_2_URL=http://microservice_2:8080
+microservice_N_URL=http://microservice_N:8080

@@ -1,0 +1,53 @@
+version: '2'
+services:
+  front-proxy:
+    ports:
+     - "80:8080"
+    image: repo_dockerhub/front-proxy:DEPLOYMENT_ENV
+    networks:
+      - project-net
+    depends_on:
+      - microservice_1
+      - microservice_2
+      - microservice_N
+    env_file:
+      - ./common.env
+    volumes:
+      - /var/log/containers/front-proxy:/var/log/front-proxy
+
+  microservice_1:
+    ports:
+      - "8080"
+    image: repo_dockerhub/microservice_1:VERSION
+    networks:
+      - project-net
+    env_file:
+      - ./common.env
+    volumes:
+      - /var/log/containers/microservice_1:/var/log/microservice_1
+
+  microservice_2:
+    ports:
+      - "8080"
+    image: repo_dockerhub/microservice_2:VERSION
+    networks:
+      - project-net
+    env_file:
+      - ./common.env
+    volumes:
+      - /var/log/containers/microservice_2:/var/log/microservice_2
+
+  microservice_N:
+    ports:
+      - "8080"
+    image: repo_dockerhub/microservice_N:VERSION
+    networks:
+      - project-net
+    env_file:
+      - ./common.env
+    volumes:
+      - /var/log/containers/microservice_N:/var/log/customers
+
+networks:
+  project-net:
+    driver: bridge
